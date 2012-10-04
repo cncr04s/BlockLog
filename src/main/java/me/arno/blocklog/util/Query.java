@@ -280,4 +280,44 @@ public class Query {
 		
 		return affected;
 	}
+	
+	public String ReturnInsertString(HashMap<String, Object> hashMap) {
+		
+		StringBuilder RowFormat = new StringBuilder("");
+		StringBuilder DataValues = new StringBuilder("");
+		
+		boolean first = true;
+		
+		Set<Entry<String, Object>> argSet = hashMap.entrySet();
+		for (Entry<String, Object> arg : argSet) {
+			if(first) {
+				RowFormat.append("`");
+				RowFormat.append(arg.getKey());
+				RowFormat.append("`");
+				DataValues.append("'");
+				DataValues.append(arg.getValue());
+				DataValues.append("'");
+				first = false;
+			}
+			else {
+				RowFormat.append(",`");
+				RowFormat.append(arg.getKey());
+				RowFormat.append("`");
+				DataValues.append(",'");
+				DataValues.append(arg.getValue());
+				DataValues.append("'");
+			}
+	    }
+		StringBuilder theReturnStatement = new StringBuilder("");
+		
+		theReturnStatement.append("INSERT INTO ");
+		theReturnStatement.append( table );
+		theReturnStatement.append( " (" );
+		theReturnStatement.append( rows );
+		theReturnStatement.append( ") VALUES (" );
+		theReturnStatement.append( values );
+		theReturnStatement.append( ");\r\n" );
+		
+		return theReturnStatement.toString();
+	}
 }
