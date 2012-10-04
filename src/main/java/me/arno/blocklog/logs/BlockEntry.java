@@ -120,6 +120,28 @@ public class BlockEntry extends DataEntry {
 		}
 	}
 	
+	public String GetSaveString() {
+		try {
+			Query query = new Query(DatabaseManager.databasePrefix + "blocks");
+			HashMap<String, Object> values = new HashMap<String, Object>();
+
+			values.put("player", getPlayer());
+			values.put("entity", getEntity());
+			values.put("block", getBlock());
+			values.put("data", getDataValue());
+			values.put("original_block", getOriginalBlock());
+			values.put("original_data", getOriginalDataValue());
+			values.put("type", getTypeId());
+			values.put("rollback", getRollback());
+			values.put("world", getWorld());
+			values.put("x", getX());
+			values.put("y", getY());
+			values.put("z", getZ());
+			values.put("date", getDate());
+			return query.ReturnInsertString(values);
+	}
+
+	
 	public int getId() {
 		return id;
 	}
