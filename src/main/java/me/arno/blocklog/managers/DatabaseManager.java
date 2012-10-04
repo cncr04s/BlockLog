@@ -19,7 +19,7 @@ public class DatabaseManager extends BlockLogManager {
 		DatabaseManager.databasePrefix = getPrefix();
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			return DriverManager.getConnection("jdbc:mysql://" + getHost() + ":" + getPort() + "/" + getDatabase(), getUsername(), getPassword());
+			return DriverManager.getConnection("jdbc:mysql://" + getHost() + ":" + getPort() + "/" + getDatabase() + "?allowMultiQueries=true", getUsername(), getPassword());
 		} catch (InstantiationException e) {
 		} catch (IllegalAccessException e) {
 		} catch (SQLException e) {
