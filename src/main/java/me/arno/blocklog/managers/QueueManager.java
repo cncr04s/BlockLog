@@ -221,6 +221,38 @@ public class QueueManager extends BlockLogManager {
 			}
 		} catch(IndexOutOfBoundsException e) {}
 	}
+	//new
+	public int saveNQueuedEdits(int N) {
+		try {
+			StringBuilder NblockEdits = new StringBuilder("");
+			if(getEditQueueSize() > 0) {
+                		int imax = blockEntries.size();
+				int i = 0;
+				if(imax > N) {
+					imax=N;
+				}
+				int i = 0;
+				for(i = 0; i < imax; i++) {
+					if(NblockEdits.isEmpty())
+                        			break;
+					BlockEntry edit = getQueuedEdit(0);
+					if(edit != null) {
+						NblockEdits.append(edit.GetSaveString());
+						blockEntries.remove(0);
+					}
+				}
+				try {
+					Statement stmt = conn.createStatement();
+					stmt.executeUpdate(NblockEdits.toString() );
+				} catch(SQLException e)
+        			{
+            				e.printStackTrace();
+        			}
+					
+			}
+			
+		} catch(IndexOutOfBoundsException e) {}
+	}
 	
 	/**
 	 * Saves a queued block edit
