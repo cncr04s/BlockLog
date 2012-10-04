@@ -42,6 +42,7 @@ public class Config {
 	}
 	
 	public void reloadConfig() {
+		saveConfig();
 		loadConfig();
 	}
 }
